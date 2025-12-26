@@ -10,7 +10,7 @@ This is my first parser and I used AI to create it. It's not bad, but I want to 
 
 ---
 
-- I recommend using **virtual environment (`venv`)** to isolate project dependencies.
+I recommend using **virtual environment (`venv`)** to isolate project dependencies.
 
 ### Installation of dependencies
 ```bash
