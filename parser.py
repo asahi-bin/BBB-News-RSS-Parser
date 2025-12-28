@@ -1,13 +1,13 @@
 # https://www.crummy.com/software/BeautifulSoup/
 from bs4 import BeautifulSoup
 
-def parse_news(html: str) -> str:
+def parse_news(html: str, limit: int) -> list:
     soup = BeautifulSoup(html, 'xml')
     articles = soup.find_all('item')
 
     news = []
 
-    for article in articles:
+    for article in articles[:limit]:
         title_tag = article.find('title')
         description_tag = article.find('description')
         data_tag = article.find('pubDate')

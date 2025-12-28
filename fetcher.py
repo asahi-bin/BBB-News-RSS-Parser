@@ -1,10 +1,5 @@
 import requests
-
-# User-Agent is mandatory, otherwise it can be clocked
-# About User-Agent: https://developer.mozilla.org/ru/docs/Web/HTTP/Reference/Headers/User-Agent
-HEADERS = {
-    'User_Agent': 'Mozilla/5.0'
-}
+from config import HEADERS
 
 def fetch_page(url: str) -> str:
     response = requests.get(url, headers=HEADERS, timeout=10)

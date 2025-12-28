@@ -15,17 +15,17 @@ I recommend using **virtual environment (`venv`)** to isolate project dependenci
 ### Installation of dependencies
 ```bash
 # Create a virtual environment
-Python3 -m venv .venv
+python -m venv .venv
 
 # Activate virtual environment
 # Linux/macOS
-Source .venv/bin/activate
+source .venv/bin/activate
 
 #Windows
 .venv\Scripts\activate
 
 # Install the necessary libraries
-Pip install requests beautifulsoup4
+pip install requests beautifulsoup4
 ```
 
 Read [Install packages in a virtual environment using pip and venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
