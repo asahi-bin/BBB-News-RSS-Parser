@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bbc-news-parser"
+version = "0.1.0"
+description = "CLI tool for parsing BBC News RSS feeds"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name="Asahi Shnaid" }
+]
+dependencies = [
+  "requests",
+  "beautifulsoup4",
+  "lxml"
+]
+
+[project.scripts]
+bbc = "bbc.__main__:main"

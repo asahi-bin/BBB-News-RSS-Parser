@@ -10,36 +10,87 @@ This is my first parser and I used AI to create it. It's not bad, but I want to 
 
 ---
 
-I recommend using **virtual environment (`venv`)** to isolate project dependencies.
+## Project Structure
 
-### Installation of dependencies
+```text
+bbc/
+├── pyproject.toml        # Project metadata and CLI entry point
+├── README.md
+│
+├── bbc/
+│   ├── __init__.py
+│   ├── __main__.py       # Package entry point (python -m bbc / bbc)
+│   │
+│   ├── cli/              # Command-line interface layer
+│   │   ├── args.py       # Argument parsing (argparse)
+│   │   └── handlers.py   # CLI mode handlers
+│   │
+│   ├── core/             # Core business logic
+│   │   ├── fetcher.py    # RSS / HTTP fetching
+│   │   └── parser.py     # RSS / HTML parsing
+│   │
+│   ├── storage/          # Output layer
+│   │   └── json.py       # Save parsed data to JSON
+│   │
+│   └── config/           # Static configuration
+│       ├── header.py     
+│       └── topics.py     # Available BBC RSS topics
+```
+
+### Architecture overview
+
+- cli — defines how the user interacts with the tool
+- core — contains pure logic (fetching and parsing)
+- storage — responsible for data persistence
+- config — static configuration and constants
+
+This separation allows the project to scale without turning into a monolithic script.
+
+---
+
+## Installation
+
+It is recommended to use a **virtual environment (`venv`)** to isolate dependencies.
+
+### Create and activate virtual environment
+
 ```bash
-# Create a virtual environment
 python -m venv .venv
 
-# Activate virtual environment
-# Linux/macOS
+# Linux / macOS
 source .venv/bin/activate
 
-#Windows
+# Windows
 .venv\Scripts\activate
-
-# Install the necessary libraries
-pip install requests beautifulsoup4 lxml
 ```
 
 Read [Install packages in a virtual environment using pip and venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
 
----
+### Install the project
 
-### The script works at the expense of keys
+The project uses pyproject.toml and exposes a CLI command.
 
 ```bash
-python3 main.py -h
+pip install -e .
+```
+
+This will:
+- install dependencies
+- register the bbc command
+- link the command to the project source code
+
+---
+
+## Usage
+
+After installation, the CLI tool is available as bbc.
+
+```bash
+bbc -h
 ```
 
 ```text
-usage: main.py [-h] (-l | -p PARSE | --parse-all) [--limit LIMIT] [-o OUTPUT]
+usage: bbc [-h] (-l | -p PARSE | --parse-all) [--limit LIMIT] [-o OUTPUT]
 
 BBC News RSS Parser
 
@@ -56,17 +107,36 @@ options:
 
 ```bash
 # Show available topics
-python main.py -l
+bbcy -l
 
 # Parse a single topic
-python main.py -p world --limit 10
+bbc -p world --limit 10
 
 # Parse all topics
-python main.py --parse-all
+bbc --parse-all
 ```
 
 ---
 
-### Output format
+## How it works
+
+1. The user runs the bbc command.
+2. The CLI entry point is defined in pyproject.toml.
+3. bbc/__main__.py launches the CLI.
+4. Arguments are parsed in cli/args.py.
+5. The corresponding handler is executed from cli/handlers.py.
+6. RSS data is fetched and parsed via the core layer.
+7. The result is saved to JSON via the storage layer.
+
+---
+
+## Output format
 
 Parsed news is saved as a JSON file in the specified output directory.
+
+Each file contains:
+- topic name
+- publication date
+- title
+- description
+- link

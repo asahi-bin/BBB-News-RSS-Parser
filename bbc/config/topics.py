@@ -1,9 +1,3 @@
-# User-Agent is mandatory, otherwise it can be clocked
-# About User-Agent: https://developer.mozilla.org/ru/docs/Web/HTTP/Reference/Headers/User-Agent
-HEADERS = {
-    'User_Agent': 'Mozilla/5.0'
-}
-
 BBS_TOPICS = {
     'Top_Stories': 'https://feeds.bbci.co.uk/news/rss.xml',
 
